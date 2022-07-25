@@ -1,66 +1,54 @@
-<h1>
-  Overview
-</h1>
-<p class="sub">
-  The list below shows an overview of the jobs in the delayed_job queue.
+<p class="heading">
+  Delayed Job Queue Status
 </p>
-<table class="overview">
-  <tr>
-    <th>Status</th>
-    <th>Count</th>
-  </tr>
-  <tr>
-    <td class="status">
-      <a href="<%= u('/enqueued') %>">Enqueued Jobs</a>
-    </td>
-    <td>
-      <%= delayed_jobs(:enqueued, @queues).count %>
-    </td>
-  </tr>
-  <tr>
-    <td class="status">
-      <a href="<%= u('/working') %>">Working Jobs</a>
-    </td>
-    <td>
-      <%= delayed_jobs(:working, @queues).count %>
-    </td>
-  </tr>
-  <tr>
-    <td class="status">
-      <a href="<%= u('/pending') %>">Pending Jobs</a>
-    </td>
-    <td>
-      <%= delayed_jobs(:pending, @queues).count %>
-    </td>
-  </tr>
-  <tr class="<%= delayed_jobs(:failed, @queues).count > 0 ? 'failure' : '' %>">
-    <td class="status">
-      <a href="<%= u('/failed') %>">Failed Jobs</a>
-    </td>
-    <td>
-      <%= delayed_jobs(:failed, @queues).count %>
-    </td>
-  </tr>
-</table>
-
-<table class="overview">
-  <tr>
-    <th>Queue</th>
-    <th>Count</th>
-  </tr>
-
+<div class="grid-container">
+  <div class="stat-card">
+    <div class="stat-container">
+      <a href="<%= u('/enqueued') %>">
+        <div class="stat-title">Enqueued Jobs</div>
+        <div class="stat-content"><%= delayed_jobs(:enqueued, @queues).count %></div>
+      </a>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-container">
+      <a href="<%= u('/working') %>">
+        <div class="stat-title">Working Jobs</div>
+        <div class="stat-content"><%= delayed_jobs(:working, @queues).count %></div>
+      </a>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-container">
+      <a href="<%= u('/pending') %>">
+        <div class="stat-title">Pending Jobs</div>
+        <div class="stat-content"><%= delayed_jobs(:pending, @queues).count %></div>
+      </a>
+    </div>
+  </div>
+  <div class="stat-card <%= delayed_jobs(:failed, @queues).count > 0 ? 'failure' : '' %>">
+    <div class="stat-container">
+      <a href="<%= u('/failed') %>">
+        <div class="stat-title">Failed Jobs</div>
+        <div class="stat-content"><%= delayed_jobs(:failed, @queues).count %></div>
+      </a>
+    </div>
+  </div>
+</div>
+<p class="heading">
+  Delayed Job Queue
+</p>
+<div class="grid-container">
   <% delayed_jobs(nil).group(:queue).size.each do |queue, count| %>
-    <tr>
-      <td class="status">
+    <div class="stat-card">
+      <div class="stat-container">
         <a href="<%= queue_path(queue) %>">
-          <%= queue %>
+          <div class="stat-title"><%= queue %></div>
+          <div class="stat-content"><%= count %></div>
         </a>
-      </td>
-      <td>
-      <%= count %>
-      </td>
-    </tr>
+      </div>
+    </div>
   <% end %>
-</table>
+</div>
 
 <%= poll %>
